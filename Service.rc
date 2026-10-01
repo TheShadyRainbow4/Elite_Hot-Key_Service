@@ -1,0 +1,4 @@
+#include <windows.h>
+#include "resource.h"
+
+IDI_APP_ICON ICON "C:\\Users\\Administrator\\Desktop\\Projects\\Elite_Hot-Key_Service\\Elite-HotKey.ico"

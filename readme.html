@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elite Hotkey Service - Documentation</title>
+    <style>
+        body {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            background-color: #e0e6ed;
+            background-image: linear-gradient(to bottom, #e0e6ed, #b6c2d1);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border: 1px solid #999;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+        }
+        h1, h2, h3 {
+            color: #1c4a8f;
+            text-shadow: 1px 1px 2px #fff, 0px 0px 5px rgba(28, 74, 143, 0.3);
+        }
+        h1 {
+            border-bottom: 2px groove #ccc;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            background: linear-gradient(to bottom, #f9f9f9, #ececec);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            border: 3px double #999;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+        .image-caption {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        .callout {
+            background-color: #fffbc6;
+            border: 1px solid #ffd800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: inset 0px 0px 5px rgba(255, 216, 0, 0.2);
+        }
+        .callout strong {
+            color: #b7410e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background: linear-gradient(to bottom, #f3f3f3, #dddddd);
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        ul {
+            list-style-type: square;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Elite Hotkey Service</h1>
+        
+        <p>Welcome to the official documentation for <strong>Elite Hotkey Service</strong>. This tool provides an incredibly powerful, system-wide hotkey manager that runs securely as a Windows Service, allowing you to bypass standard User Account Control (UAC) limitations and manage your system effortlessly.</p>
+        
+        <h2>Main Configuration Interface</h2>
+        <p>The main configuration GUI allows you to view, add, edit, and remove your custom hotkeys. By default, the application runs silently in the system tray to ensure your hotkeys work out of the box after a reboot without presenting unwanted windows.</p>
+        
+        <div class="image-container">
+            <img src="Main_Config_GUI.png" alt="Main Configuration GUI" />
+            <div class="image-caption">Figure 1: The Main Configuration Interface showing alternating row colors and configured hotkeys.</div>
+        </div>
+        
+        <p>Features of the main window:</p>
+        <ul>
+            <li><strong>Always On Top:</strong> The configuration window stays on top of other windows so you never lose track of it.</li>
+            <li><strong>Smart Column Memory:</strong> You can resize the list view columns to your liking, and the app will remember your preferences between sessions.</li>
+            <li><strong>Minimize to Tray:</strong> Closing or minimizing the window will simply hide it back to the system tray, keeping your hotkeys active.</li>
+        </ul>
+
+        <h2>Adding and Editing Hotkeys</h2>
+        <p>Double-clicking an item in the list or clicking "Add New" will open the Hotkey Configuration dialog.</p>
+        
+        <div class="image-container">
+            <img src="Add_hotkey_dialog.png" alt="Add Hotkey Dialog" />
+            <div class="image-caption">Figure 2: The Add/Edit Hotkey Dialog where you configure your shortcut and action.</div>
+        </div>
+        
+        <p>When recording a hotkey, the dialog uses a <strong>Low-Level Keyboard Hook</strong> to perfectly capture your physical keystrokes without accidentally triggering system actions while you are trying to type them.</p>
+
+        <h3>Configuration Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><strong>Run as Command Line</strong></td>
+                <td>If checked, the target path is executed via <code>cmd.exe /c</code> instead of a standard shell launch. Useful for batch scripts or complex arguments.</td>
+            </tr>
+            <tr>
+                <td><strong>Run as System</strong></td>
+                <td>Leverages the background Windows Service to launch the target as the <code>NT AUTHORITY\SYSTEM</code> user. This grants the highest possible privileges and completely bypasses UAC prompts.</td>
+            </tr>
+            <tr>
+                <td><strong>Block in Fullscreen</strong></td>
+                <td>If checked, the hotkey will gracefully ignore your press if a fullscreen application (like a video game or movie) is active, preventing accidental interruptions.</td>
+            </tr>
+            <tr>
+                <td><strong>Low Level Hook Override</strong></td>
+                <td>By default, standard hotkeys are registered using the OS <code>RegisterHotKey</code> API. However, Windows blocks certain combinations (like <code>WIN+R</code> or <code>WIN+E</code>). By checking this box, the tool uses a low-level hook to aggressively swallow the native shortcut and force your custom action instead.</td>
+            </tr>
+        </table>
+
+        <h2>Conflict Detection & Warnings</h2>
+        <p>The application is smart enough to detect if you are trying to assign a hotkey combination that you've already assigned to another action.</p>
+        
+        <div class="image-container">
+            <img src="Conflict_Warning_Dialog.png" alt="Conflict Warning Dialog" />
+            <div class="image-caption">Figure 3: Warning dialog displayed when a conflict is detected.</div>
+        </div>
+        
+        <p>When editing an existing hotkey, it intelligently ignores itself during the conflict check so you aren't warned unnecessarily. Warning dialogs also force themselves to the very top so they never open hidden behind the main application window.</p>
+
+        <h2>How It Works & Limitations</h2>
+        <div class="callout">
+            <strong>Technical Note:</strong> All settings are securely saved to the Windows Registry at <code>HKCU/HKLM\SOFTWARE\EliteSoftware\Hotkeys\ServiceV5</code> and IPC pipes are used to communicate with the service.
+        </div>
+        
+        <p><strong>Limitations to keep in mind:</strong></p>
+        <ul>
+            <li>To ensure smooth operation, the application enforces a <strong>single-instance</strong> policy. You cannot run multiple configuration tools under the same user session, though different users on the same machine can run their own instances independently.</li>
+            <li>If you configure a hotkey without any modifier keys (e.g., just the letter 'E'), and you have <i>Low Level Hook Override</i> checked, the hook will aggressively block that key globally. Be careful when assigning single-key hotkeys!</li>
+        </ul>
+        
+        <p>Enjoy using Elite Hotkey Service, designed for maximum productivity and system control.</p>
+    </div>
+</body>
+</html>

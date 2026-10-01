@@ -1,0 +1,41 @@
+#include <windows.h>
+#include "resource.h"
+
+IDI_APP_ICON ICON "C:\\Users\\Administrator\\Desktop\\Projects\\Elite_Hot-Key_Service\\Elite-HotKey.ico"
+
+IDD_CONFIG_DIALOG DIALOGEX 0, 0, 400, 200
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOPMOST
+CAPTION "Hotkey Configuration"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Configured Hotkeys (Double-click to edit):", IDC_STATIC, 10, 10, 200, 8
+    CONTROL         "", IDC_HOTKEY_LIST, "SysListView32", LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 10, 20, 380, 140
+    PUSHBUTTON      "Add New", IDC_ADD, 10, 170, 50, 14
+    PUSHBUTTON      "Remove", IDC_REMOVE, 65, 170, 45, 14
+    PUSHBUTTON      "Import", IDC_IMPORT, 115, 170, 45, 14
+    PUSHBUTTON      "Export", IDC_EXPORT, 165, 170, 45, 14
+    PUSHBUTTON      "Apply", 1012, 230, 170, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 285, 170, 50, 14
+    DEFPUSHBUTTON   "OK", IDOK, 340, 170, 50, 14
+END
+
+IDD_EDIT_DIALOG DIALOGEX 0, 0, 250, 165
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOPMOST
+CAPTION "Edit Hotkey"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Name:", IDC_STATIC, 10, 10, 50, 8
+    EDITTEXT        IDC_NAME, 70, 8, 170, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "Press Hotkey:", IDC_STATIC, 10, 28, 60, 8
+    EDITTEXT        IDC_HOTKEY_CTRL, 70, 26, 170, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "Command:", IDC_STATIC, 10, 46, 50, 8
+    EDITTEXT        IDC_COMMAND, 70, 44, 170, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Run as Command Line (cmd.exe)", IDC_RUN_AS_COMMAND, 10, 64, 200, 10
+    AUTOCHECKBOX    "Launch as SYSTEM (via service)", IDC_RUN_AS_SYSTEM, 10, 79, 200, 10
+    AUTOCHECKBOX    "Block if Fullscreen app is running", IDC_BLOCK_FULLSCREEN, 10, 94, 200, 10
+    AUTOCHECKBOX    "Override Native OS Hotkey (Requires Hook)", IDC_OVERRIDE_NATIVE, 10, 109, 200, 10
+    DEFPUSHBUTTON   "Save", IDOK, 120, 135, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 180, 135, 50, 14
+END
